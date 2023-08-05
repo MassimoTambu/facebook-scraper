@@ -591,6 +591,10 @@ class PostExtractor:
                 query = parse_qs(urlparse(url).query)
                 profile_id = query["profileid"][0]
                 token = query["photoset_token"][0]
+                if "_ft_" in token:
+                    startIdx = token.find("_ft_")
+                    endIdx = token.find('&', startIdx)
+                    token = token[:startIdx] + token[endIdx + 1:]
                 url = f"{profile_id}/posts/{token}"
                 logger.debug(f"Fetching {url}")
                 response = self.request(url)
@@ -627,6 +631,11 @@ class PostExtractor:
             url = utils.urljoin(FB_MOBILE_BASE_URL, url)
             logger.debug(f"Fetching {url}")
             try:
+                print(url)
+                if "_ft_" in url:
+                    startIdx = url.find("_ft_")
+                    endIdx = url.find('&', startIdx)
+                    url = url[:startIdx] + url[endIdx + 1:]
                 response = self.request(url)
                 images.append(self.extract_photo_link_HQ(response.text))
                 elem = response.html.find(".img[data-sigil='photo-image']", first=True)
