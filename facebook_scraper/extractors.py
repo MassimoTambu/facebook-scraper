@@ -631,7 +631,6 @@ class PostExtractor:
             url = utils.urljoin(FB_MOBILE_BASE_URL, url)
             logger.debug(f"Fetching {url}")
             try:
-                print(url)
                 if "_ft_" in url:
                     startIdx = url.find("_ft_")
                     endIdx = url.find('&', startIdx)
