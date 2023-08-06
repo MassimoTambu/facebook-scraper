@@ -42,7 +42,7 @@ def iter_group_pages(
     start_url = kwargs.pop("start_url", None)
 
     if not start_url:
-        start_url = utils.urljoin(FB_MOBILE_BASE_URL, f'groups/{group}/')
+        start_url = utils.urljoin(FB_MOBILE_BASE_URL, f'groups/{group}/?sorting_setting=CHRONOLOGICAL')
 
     return generic_iter_pages(start_url, GroupPageParser, request_fn, **kwargs)
 
